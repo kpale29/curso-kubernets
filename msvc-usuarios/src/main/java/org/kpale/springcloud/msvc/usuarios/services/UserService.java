@@ -1,7 +1,7 @@
 package org.kpale.springcloud.msvc.usuarios.services;
 
 import org.kpale.springcloud.msvc.usuarios.models.entities.User;
-import org.kpale.springcloud.msvc.usuarios.repositories.UserRepository;
+import org.kpale.springcloud.msvc.usuarios.repositories.IUserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,9 +10,9 @@ import java.util.Optional;
 
 @Service
 public class UserService implements IUserService {
-    private final UserRepository repository;
+    private final IUserRepository repository;
 
-    public UserService(UserRepository repository) {
+    public UserService(IUserRepository repository) {
         this.repository = repository;
     }
 
