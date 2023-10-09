@@ -39,4 +39,15 @@ public class UserService implements IUserService {
     public void delete(Long id) {
         this.repository.deleteById(id);
     }
+
+    @Override
+    public Optional<User> byEmail(String email) {
+        return repository.findByEmail(email);
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return repository.existsByEmail(email);
+    }
+
 }
