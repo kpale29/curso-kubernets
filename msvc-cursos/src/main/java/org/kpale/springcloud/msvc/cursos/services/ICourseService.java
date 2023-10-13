@@ -1,5 +1,6 @@
 package org.kpale.springcloud.msvc.cursos.services;
 
+import org.kpale.springcloud.msvc.cursos.models.User;
 import org.kpale.springcloud.msvc.cursos.models.entities.Course;
 
 import java.util.List;
@@ -10,5 +11,7 @@ public interface ICourseService {
     Optional<Course> byId(Long id);
     Course save(Course course);
     void delete(Long id);
-
+    Optional<User> setUser(User user, Long courseId);
+    Optional<User> postUser(User user, Long courseId);
+    Optional<User> deleteUser(User user, Long courseId);
 }
