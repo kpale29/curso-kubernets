@@ -30,7 +30,7 @@ public class CourseController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id){
-        Optional<Course> user =  this.service.byId(id);
+        Optional<Course> user =  this.service.getByUsersId(id);
         if(user.isPresent()){
             return ResponseEntity.ok(user.get());
         }
@@ -70,6 +70,12 @@ public class CourseController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("deleteCourseUser/{id}")
+    public ResponseEntity<?> deleteCourseUser(@PathVariable Long id){
+        this.service.deleteCourseUserById(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/setUser/{courseId}")

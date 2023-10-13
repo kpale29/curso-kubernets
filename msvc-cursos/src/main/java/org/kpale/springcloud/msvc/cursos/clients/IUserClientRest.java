@@ -2,10 +2,9 @@ package org.kpale.springcloud.msvc.cursos.clients;
 
 import org.kpale.springcloud.msvc.cursos.models.User;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @FeignClient(name="msvc-usuarios", url = "localhost:8001")
 public interface IUserClientRest {
@@ -16,6 +15,6 @@ public interface IUserClientRest {
     @PostMapping
     User post( @RequestBody User user);
 
-
-
+    @GetMapping("/getAllByCourse")
+    List<User> getAllByCourse(@RequestParam Iterable<Long> ids);
 }

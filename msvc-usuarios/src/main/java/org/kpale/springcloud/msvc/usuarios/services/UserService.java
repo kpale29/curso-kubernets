@@ -1,7 +1,9 @@
 package org.kpale.springcloud.msvc.usuarios.services;
 
+import org.kpale.springcloud.msvc.usuarios.clients.ICourseClientRest;
 import org.kpale.springcloud.msvc.usuarios.models.entities.User;
 import org.kpale.springcloud.msvc.usuarios.repositories.IUserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,8 +14,11 @@ import java.util.Optional;
 public class UserService implements IUserService {
     private final IUserRepository repository;
 
-    public UserService(IUserRepository repository) {
+    private final ICourseClientRest client;
+
+    public UserService(IUserRepository repository, ICourseClientRest client) {
         this.repository = repository;
+        this.client = client;
     }
 
     @Override
@@ -38,6 +43,7 @@ public class UserService implements IUserService {
     @Transactional
     public void delete(Long id) {
         this.repository.deleteById(id);
+        this.client.deleteCourseUser(id);
     }
 
     @Override
@@ -48,6 +54,12 @@ public class UserService implements IUserService {
     @Override
     public boolean existsByEmail(String email) {
         return repository.existsByEmail(email);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<User> findAllByIds(Iterable<Long> ids) {
+       return (List<User>) this.repository.findAllById(ids);
     }
 
 }
